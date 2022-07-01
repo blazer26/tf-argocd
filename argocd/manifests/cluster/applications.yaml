@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nginx
+  namespace: argocd
+spec:
+  destination:
+    namespace: nginx
+    server: https://kubernetes.default.svc
+  project: nginx
+  source:
+    path: argocd/manifests/nginx
+    repoURL: https://github.com/blazer26/tf-argocd.git
+    targetRevision: HEAD
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
