@@ -34,3 +34,22 @@ spec:
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: grafana
+  namespace: argocd
+spec:
+  destination:
+    namespace: monitoring
+    server: https://kubernetes.default.svc
+  project: monitoring
+  source:
+    path: argocd/manifests/grafana
+    repoURL: https://github.com/blazer26/tf-argocd.git
+    targetRevision: HEAD
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
